@@ -1,0 +1,20 @@
+@model SportsClubWeb.ViewModels.CourtReservationViewModel
+
+<div class="card card-outline-primary m-1 p-1">
+    <div class="bg-faded p-1">
+        <h4>
+            @Model.CourtName
+        </h4>
+    </div>
+    <div>
+        @foreach (var res in Model.Reservations)
+        {
+            <div>
+                <span>From: @res.Start to @res.End </span>
+            </div>
+            <div>
+                <span>Reserved by: @res.Owner.FirstName @res.Owner.LastName </span>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,7 @@
+@model SportsClubWeb.ViewModels.ReservationViewModel
+<h2>@Model.Title</h2>
+
+@foreach (var id in Model.CourtIds)
+{
+  @await Html.PartialAsync("CourtReservations", Model.ReservationsForCourt(id))
+}
