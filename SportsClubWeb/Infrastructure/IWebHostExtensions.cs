@@ -25,26 +25,26 @@ namespace SportsClubWeb.Infrastructure
                             new TennisCourt()
                             {
                                 Name = "Rod Laver",
-                                HasRoof = false,
+                                IsIndoor = false,
                                 HourlyCourtCost = 5,
                                 HourlyIlluminationCost = 1,
-                                Surface = Surface.HARD_COURT
+                                Surface = Surface.Hardcourt
                             },
                              new TennisCourt()
                              {
                                  Name = "John McEnroe",
-                                 HasRoof = false,
+                                 IsIndoor = false,
                                  HourlyCourtCost = 5,
                                  HourlyIlluminationCost = 1,
-                                 Surface = Surface.GRASS
+                                 Surface = Surface.Grass
                              },
                              new PadelCourt()
                              {
                                  Name = "Fernando Belasteguin",
-                                 HasRoof = false,
+                                 IsIndoor = false,
                                  HourlyCourtCost = 5,
                                  HourlyIlluminationCost = 1,
-                                 Surface = Surface.GRASS
+                                 Surface = Surface.Grass
                              }
 
                     );

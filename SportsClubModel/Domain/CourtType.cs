@@ -6,6 +6,6 @@ namespace SportsClubModel.Domain
 {
     public enum CourtType
     {
-        TENNIS = 0, PADEL = 1, SQUASH = 2, SOCCER = 3
+        Tennis = 0, Padel = 1, Squash = 2, Soccer = 3
     }
 }

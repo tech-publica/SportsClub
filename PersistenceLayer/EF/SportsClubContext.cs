@@ -1,16 +1,20 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using PersistenceLayer.EF.IdentityModel;
 using SportsClubModel.Domain;
 
 namespace PersistenceLayer.EF
 {
-    public class SportsClubContext : DbContext
+    public class SportsClubContext : IdentityDbContext<ApplicationUser>
     {
-        public const string CONN_STRING = "Server = localhost; Database = SportsClub; User Id=SportsClub; Password=P@55w0rd; MultipleActiveResultSets = true";
+        public const string CONN_STRING = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SportsClub;MultipleActiveResultSets = true";
         public SportsClubContext(DbContextOptions<SportsClubContext> options)
         : base(options)
         {}
         public DbSet<Court> Courts { get; set; }
         public DbSet<TennisCourt> TennisCourts { get; set; }
+        public DbSet<SquashCourt> SquashCourts { get; set; }
+        public DbSet<SoccerCourt> SoccerCourts { get; set; }
         public DbSet<PadelCourt> PadelCourts { get; set; }
         public DbSet<Challenge> Challenges { get; set; }
         public DbSet<ChallengeRegistration> ChallengeRegistrations{ get; set; }
@@ -19,10 +23,14 @@ namespace PersistenceLayer.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Court>().ToTable("Courts")
                 .HasDiscriminator<int>("CourtType")
-                .HasValue<TennisCourt>((int)CourtType.TENNIS)
-                .HasValue<PadelCourt>((int)CourtType.PADEL);
+                .HasValue<TennisCourt>((int)CourtType.Tennis)
+                .HasValue<SquashCourt>((int)CourtType.Squash)
+                .HasValue<SoccerCourt>((int)CourtType.Soccer)
+                .HasValue<PadelCourt>((int)CourtType.Padel);
 
             modelBuilder.Entity<ChallengeRegistration>()
             .HasKey(cr => cr.Id);

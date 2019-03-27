@@ -6,6 +6,6 @@ namespace SportsClubModel.Domain
 {
     public enum Surface
     {
-        GRASS = 0, CLAY = 1, HARD_COURT = 2
+        Grass = 0, Clay = 1, Hardcourt = 2
     }
 }

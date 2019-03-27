@@ -35,12 +35,14 @@ namespace SportsClubWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper();
-            services.AddMvc();
+            services.AddMvc( opt => opt.ModelBindingMessageProvider.SetValueIsInvalidAccessor   (val => "This field is not of the right type"));
             services.AddDbContext<SportsClubContext>(options =>
                 options
                 .UseLazyLoadingProxies()
                 .UseSqlServer(
                     Configuration["Data:SportsClubContext:ConnectionString"]));
+            services.AddTransient<CourtUnitOfWork, EFCourtUnitOfWork>();
+            services.AddTransient<CourtRepository, EFCourtRepository>();
             services.AddTransient<ReservationUnitOfWork, EFReservationUnitOfWork>();
             services.AddTransient<ReservationRepository, EFReservationRepository>();
             services.AddTransient<ReservationUnitOfWorkAsync, EFReservationUnitOfWorkAsync>();
@@ -62,7 +64,7 @@ namespace SportsClubWeb
             // {
             //    await context.Response.WriteAsync("Hello World!");
             //});
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -71,8 +73,9 @@ namespace SportsClubWeb
                     defaults: new { controller = "Reservation", action = "Index", dateOfReservation = DateTime.Today }
                 );
 
-
-                routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
          
 
