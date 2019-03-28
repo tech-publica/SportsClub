@@ -1,7 +1,7 @@
 @model SportsClubWeb.ViewModels.CourtReservationViewModel
 
-<div class="card card-outline-primary m-1 p-1">
-    <div class="bg-faded p-1">
+<div class="card card-outline-primary m-1 p-1 text-white @Model.BackGroundColorClass">
+    <div class="p-1 text-black-50">
         <h4>
             @Model.CourtName
         </h4>
@@ -9,12 +9,14 @@
     <div>
         @foreach (var res in Model.Reservations)
         {
+        <div class="border border-dark">
             <div>
-                <span>From: @res.Start to @res.End </span>
+                <span>From: @res.Start.ToString("t") to @res.End.ToString("t") </span>
             </div>
             <div>
                 <span>Reserved by: @res.Owner.FirstName @res.Owner.LastName </span>
             </div>
+        </div>
         }
     </div>
 </div>

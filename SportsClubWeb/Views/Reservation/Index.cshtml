@@ -1,5 +1,6 @@
+@using System.Globalization
 @model SportsClubWeb.ViewModels.ReservationViewModel
-<h2>@Model.Title</h2>
+<h2>Court Reservations for @DateTime.Today.ToString("D", CultureInfo.InvariantCulture)</h2>
 
 @foreach (var id in Model.CourtIds)
 {

@@ -30,7 +30,7 @@ namespace PersistenceLayer.EF.Repositories
             return ctx.Courts.Find(id);
         }
 
-        public IEnumerable<Court> List()
+        public IEnumerable<Court> All()
         {
             return ctx.Courts.ToList();
         }

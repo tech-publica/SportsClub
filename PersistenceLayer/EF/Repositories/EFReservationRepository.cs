@@ -15,7 +15,13 @@ namespace PersistenceLayer.EF.Repositories
             this.ctx = ctx;
         }
 
-         public IEnumerable<Reservation> ReservationsForDay(DateTime day)
+        public IEnumerable<Reservation> AllReservations()
+        {
+            return ctx.Reservations.ToList();
+        }
+
+
+        public IEnumerable<Reservation> ReservationsForDay(DateTime day)
         {
             var start = day.Date;
             var end = start.AddHours(23);
@@ -43,5 +49,7 @@ namespace PersistenceLayer.EF.Repositories
         {
             ctx.Reservations.Add(reservation);
         }
+
+       
     }
 }

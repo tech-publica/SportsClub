@@ -10,7 +10,7 @@ namespace SportsClubModel.CoreAbstractions.Repositories
         void Add(Court court);
         void Delete(Court court);
         void Update(Court court);
-        IEnumerable<Court> List();
+        IEnumerable<Court> All();
         Court FindById(long id);
     }
 }

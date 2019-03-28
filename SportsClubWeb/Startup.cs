@@ -43,6 +43,7 @@ namespace SportsClubWeb
                     Configuration["Data:SportsClubContext:ConnectionString"]));
             services.AddTransient<CourtUnitOfWork, EFCourtUnitOfWork>();
             services.AddTransient<CourtRepository, EFCourtRepository>();
+            services.AddTransient<MemberRepository, EFMemberRepository>();
             services.AddTransient<ReservationUnitOfWork, EFReservationUnitOfWork>();
             services.AddTransient<ReservationRepository, EFReservationRepository>();
             services.AddTransient<ReservationUnitOfWorkAsync, EFReservationUnitOfWorkAsync>();

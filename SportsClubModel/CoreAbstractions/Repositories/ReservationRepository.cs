@@ -5,6 +5,7 @@ namespace SportsClubModel.CoreAbstractions.Repositories
 {
     public interface ReservationRepository
     {
+        IEnumerable<Reservation> AllReservations();
         IEnumerable<Reservation> ReservationsForDay(DateTime day);
         IEnumerable<Reservation> ReservationsInDateInterval(DateTime start, DateTime end);
         IEnumerable<Reservation> ReservationsForCourtInDateInterval(long courtId, DateTime start, DateTime end);

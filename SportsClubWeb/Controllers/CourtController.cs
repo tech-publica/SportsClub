@@ -19,7 +19,7 @@ namespace SportsClubWeb.Controllers
 
         public IActionResult Index()
         {
-            var courts = courtWork.CourtRepository.List();
+            var courts = courtWork.CourtRepository.All();
             var courtViewModels = mapper.Map<CourtViewModel[]>(courts);
             return View(courtViewModels);
         }

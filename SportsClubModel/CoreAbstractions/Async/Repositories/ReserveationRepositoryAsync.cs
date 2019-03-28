@@ -6,6 +6,9 @@ namespace SportsClubModel.CoreAbstractions.Async.Repositories
     public interface ReservationRepositoryAsync
     {
         void Add(Reservation reservation);
+        void Remove(Reservation reservation);
+        Task<Reservation> FindByIdAsync(long id);
+        Task<Reservation[]> AllReservationsAsync();
         Task<Reservation[]> ReservationsForDayAsync(DateTime day);
         Task<Reservation[]> ReservationsInDateIntervalAsync(DateTime start, DateTime end);
         Task<Reservation[]> ReservationsForCourtInDateIntervalAsync(long courtId, DateTime start, DateTime end);

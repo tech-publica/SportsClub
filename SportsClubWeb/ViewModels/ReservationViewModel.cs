@@ -14,9 +14,8 @@ namespace SportsClubWeb.ViewModels
         {
             Start = start;
             End = end;
-            string format = "yyyy-MM-ddTHH:mm";
-            Title = (end == DateTime.MinValue || end == Start) ? $"Court Reservations for {Start.ToString(format)}" :
-            $"Court Reservations from {Start.ToString(format)} to  {End.ToString(format)}";
+            string timeFormat = "t";
+            Title = $"Court Reservations from {Start.ToString(timeFormat)} to  {End.ToString(timeFormat)}";
             reservationsByCourt = new Dictionary<long, CourtReservationViewModel>();
             courtNames = new HashSet<string>();
             foreach (var res in reservations)
@@ -25,7 +24,7 @@ namespace SportsClubWeb.ViewModels
                 CourtReservationViewModel model;
                 if(!reservationsByCourt.TryGetValue(res.Court.Id, out model))
                 {
-                    model = new CourtReservationViewModel(res.Court.Id, res.Court.Name);
+                    model = new CourtReservationViewModel(res.Court.Id, res.Court.Name, res.Court.Surface);
                     reservationsByCourt[res.Court.Id] = model;
                 }
                 model.Add(res);
