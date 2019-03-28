@@ -8,5 +8,6 @@ namespace SportsClubModel.CoreAbstractions.UnitsOfWork
     public interface MemberUnitOfWork
     {
         MemberRepository MemberRepository { get; set; }
+        int Save();
     }
 }

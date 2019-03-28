@@ -2,6 +2,7 @@
 using SportsClubModel.Domain;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +10,9 @@ namespace SportsClubWeb.ViewModels
 {
     public class ReservationCreateViewModel
     {
+        [DisplayName("Reserved By")]
         public long MemberId { get; set; }
+        [DisplayName("Court")]
         public long CourtId { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }

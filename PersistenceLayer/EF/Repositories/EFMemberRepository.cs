@@ -14,9 +14,30 @@ namespace PersistenceLayer.EF.Repositories
         {
             this.ctx = ctx;
         }
+
         public IEnumerable<Member> All()
         {
             return ctx.Members.ToList();
+        }
+
+        public void Add(Member member)
+        {
+            ctx.Add(member);
+        }
+
+        public Member FindById(long id)
+        {
+            return ctx.Members.Find(id);
+        }
+
+        public void Remove(Member member)
+        {
+            ctx.Members.Remove(member);
+        }
+
+        public void Update(Member member)
+        {
+            ctx.Members.Update(member);
         }
     }
 }

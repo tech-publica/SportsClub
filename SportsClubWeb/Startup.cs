@@ -44,6 +44,7 @@ namespace SportsClubWeb
             services.AddTransient<CourtUnitOfWork, EFCourtUnitOfWork>();
             services.AddTransient<CourtRepository, EFCourtRepository>();
             services.AddTransient<MemberRepository, EFMemberRepository>();
+            services.AddTransient<MemberUnitOfWork, EFMemberUnitOfWork>();
             services.AddTransient<ReservationUnitOfWork, EFReservationUnitOfWork>();
             services.AddTransient<ReservationRepository, EFReservationRepository>();
             services.AddTransient<ReservationUnitOfWorkAsync, EFReservationUnitOfWorkAsync>();
