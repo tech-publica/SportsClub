@@ -27,45 +27,86 @@ namespace SportsClubWeb.Controllers.api
         [HttpGet]
         public async Task<ActionResult<ReservationDTO[]>> Get()
         {
-            var reservations = await reservationUnitOfWork.ReservationRepository.AllReservationsAsync();
-            var reservationDTOs = autoMapper.Map<ReservationDTO[]>(reservations);
-            return Ok(reservationDTOs);
+            try
+            {
+                var reservations = await reservationUnitOfWork.ReservationRepository.AllReservationsAsync();
+                var reservationDTOs = autoMapper.Map<ReservationDTO[]>(reservations);
+                return Ok(reservationDTOs);
+            }
+            catch (Exception)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Internal Failure");
+            }
+
+
         }
 
         [HttpGet("forDate")]
         public async Task<ActionResult<ReservationDTO[]>> Get(DateTime date)
         {
-            var reservations = await reservationUnitOfWork.ReservationRepository.ReservationsForDayAsync(date);
-            var reservationDTOs = autoMapper.Map<ReservationDTO[]>(reservations);
-            return Ok(reservationDTOs);
+            try
+            {
+                var reservations = await reservationUnitOfWork.ReservationRepository.ReservationsForDayAsync(date);
+                var reservationDTOs = autoMapper.Map<ReservationDTO[]>(reservations);
+                return Ok(reservationDTOs);
+            }
+            catch (Exception)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Internal Failure");
+            }
+
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ReservationDTO>> Get(long id)
         {
-            var reservation = await reservationUnitOfWork.ReservationRepository.FindByIdAsync(id);
-            if (reservation == null)
+            try
             {
-                return NotFound();
+                var reservation = await reservationUnitOfWork.ReservationRepository.FindByIdAsync(id);
+                if (reservation == null)
+                {
+                    return NotFound();
+                }
+                var reservationDTO = autoMapper.Map<ReservationDTO>(reservation);
+                return Ok(reservationDTO);
             }
-            var reservationDTO = autoMapper.Map<ReservationDTO>(reservation);
-            return Ok(reservationDTO);
+            catch (Exception)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Internal Failure");
+            }
+
+
         }
 
         [HttpPost]
         public async Task<ActionResult<ReservationDTO>> Add(ReservationDTO dto)
         {
-            var existingReservations = await reservationUnitOfWork.ReservationRepository
-                         .ReservationsForCourtInDateIntervalAsync(dto.CourtId, dto.Start, dto.End);
-            if (existingReservations.Length != 0)
+            try
             {
-                return BadRequest("court not available");
+                var existingReservations = await reservationUnitOfWork.ReservationRepository
+                                         .ReservationsForCourtInDateIntervalAsync(dto.CourtId, dto.Start, dto.End);
+                if (existingReservations.Length != 0)
+                {
+                    return BadRequest("court not available");
+                }
+                var location = linkGenerator.GetPathByAction("Get", "ReservationAPI", new { dto.Id });
+                var newReservation = autoMapper.Map<Reservation>(dto);
+                reservationUnitOfWork.ReservationRepository.Add(newReservation);
+                await reservationUnitOfWork.SaveAsync();
+                return Created(location, autoMapper.Map<ReservationDTO>(newReservation));
             }
-            var location = linkGenerator.GetPathByAction("Get", "ReservationAPI", new { dto.Id });
-            var newReservation = autoMapper.Map<Reservation>(dto);
-            reservationUnitOfWork.ReservationRepository.Add(newReservation);
-            await reservationUnitOfWork.SaveAsync();
-            return Created(location, autoMapper.Map<ReservationDTO>(newReservation));
+            catch (Exception)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Internal Failure");
+            }
+
+
+
+
 
         }
 
@@ -93,14 +134,23 @@ namespace SportsClubWeb.Controllers.api
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            var existingReservation = await reservationUnitOfWork.ReservationRepository.FindByIdAsync(id);
-            if (existingReservation == null)
+            try
             {
-                return NotFound();
+                var existingReservation = await reservationUnitOfWork.ReservationRepository.FindByIdAsync(id);
+                if (existingReservation == null)
+                {
+                    return NotFound();
+                }
+                reservationUnitOfWork.ReservationRepository.Remove(existingReservation);
+                await reservationUnitOfWork.SaveAsync();
+                return Ok();
             }
-            reservationUnitOfWork.ReservationRepository.Remove(existingReservation);
-            await reservationUnitOfWork.SaveAsync();
-            return Ok();
+            catch (Exception)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Internal Failure");
+            }
+
         }
     }
 }

@@ -4,6 +4,8 @@ using SportsClubModel.CoreAbstractions.UnitsOfWork;
 using SportsClubModel.Domain;
 using SportsClubWeb.ViewModels;
 using System;
+using System.Linq;
+
 namespace SportsClubWeb.Controllers
 {
     public class ReservationController : Controller
@@ -38,6 +40,19 @@ namespace SportsClubWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var members = reservationWork.MemberRepository.All();
+                var courts = reservationWork.CourtRepository.All();
+                viewModel.FillSelectLists(members, courts);
+                return View(viewModel);
+            }
+            var existingReservation = reservationWork.ReservationRepository
+                .ReservationsForCourtInDateInterval(viewModel.CourtId, viewModel.Start, viewModel.End).FirstOrDefault();
+            if (existingReservation != null)
+            {
+                ModelState.AddModelError("", "Sorry, selected court isn't available at the time you requested");
+                var members = reservationWork.MemberRepository.All();
+                var courts = reservationWork.CourtRepository.All();
+                viewModel.FillSelectLists(members, courts);
                 return View(viewModel);
             }
             var reservation = mapper.Map<Reservation>(viewModel);
@@ -45,5 +60,7 @@ namespace SportsClubWeb.Controllers
             reservationWork.Save();
             return RedirectToAction(nameof(Index));
         }
+
+
     }
 }

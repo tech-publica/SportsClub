@@ -28,7 +28,7 @@ namespace SportsClubWeb.Infrastructure
                                 IsIndoor = false,
                                 HourlyCourtCost = 5,
                                 HourlyIlluminationCost = 1,
-                                Surface = Surface.Hardcourt
+                                Surface = Surface.Clay
                             },
                              new TennisCourt()
                              {

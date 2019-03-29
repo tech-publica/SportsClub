@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SportsClubModel.CoreAbstractions.UnitsOfWork;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace SportsClubWeb.Controllers
 {
+   // [Authorize]
     public class MemberController : Controller
     {
         private readonly MemberUnitOfWork memberWork;

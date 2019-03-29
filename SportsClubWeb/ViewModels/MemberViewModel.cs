@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace SportsClubWeb.ViewModels
 {
+   
     public class MemberViewModel
     {
         public long Id { get; set; }

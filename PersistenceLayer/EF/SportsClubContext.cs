@@ -20,6 +20,7 @@ namespace PersistenceLayer.EF
         public DbSet<ChallengeRegistration> ChallengeRegistrations{ get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Member> Members { get; set; }
+        public DbSet<Tournament> Tournament{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
