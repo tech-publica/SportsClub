@@ -27,6 +27,7 @@ namespace SportsClubWeb.Controllers.api
         [HttpGet]
         public async Task<ActionResult<ReservationDTO[]>> Get()
         {
+            //throw new Exception("BIG ERROR*********************************");
             try
             {
                 var reservations = await reservationUnitOfWork.ReservationRepository.AllReservationsAsync();

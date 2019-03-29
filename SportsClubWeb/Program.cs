@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using NLog.Web;
 using SportsClubWeb.Infrastructure;
 
 namespace SportsClubWeb
@@ -22,6 +23,9 @@ namespace SportsClubWeb
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+
+                .UseStartup<Startup>()
+                .UseNLog();
+            
     }
 }
