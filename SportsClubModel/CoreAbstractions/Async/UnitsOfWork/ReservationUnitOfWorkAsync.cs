@@ -6,6 +6,7 @@ namespace SportsClubModel.CoreAbstractions.Async.UnitsOfWork
     public interface ReservationUnitOfWorkAsync
     {
          ReservationRepositoryAsync ReservationRepository { get; set; }
-         Task<int> SaveAsync();
+         CourtRepositoryAsync CourtRepository { get; set; }
+        Task<int> SaveAsync();
     }
 }

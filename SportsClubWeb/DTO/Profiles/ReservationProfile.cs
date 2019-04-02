@@ -13,7 +13,9 @@ namespace SportsClubWeb.DTO.Profiles
             .ForMember(dto => dto.CourtName, conf => conf.MapFrom(r => r.Court.Name))
             .ReverseMap()
             .ForMember(r => r.Court, conf => conf.Ignore())
-            .ForMember(r => r.Court, conf => conf.Ignore());
+            .ForMember(r => r.Owner, conf => conf.Ignore())
+            .ForMember(r => r.MemberId, conf => conf.MapFrom(dto => dto.MemberId));
+            //.ForPath(r => r.Owner.Id , conf => conf.MapFrom(dto => dto.MemberId));
         }
     }
 }

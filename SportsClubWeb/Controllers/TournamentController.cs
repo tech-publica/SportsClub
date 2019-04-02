@@ -12,6 +12,13 @@ namespace SportsClubWeb.Controllers
     public class TournamentController : Controller
     {
         private readonly FakeTournamentRepository repo = new FakeTournamentRepository();
+
+        //private readonly IRepository repo;
+        //public TournamentController(IRepository repo)
+        //{
+        //    this.repo = repo;
+        //}
+
         public ActionResult Index()
         {
             var tournaments = repo.All();

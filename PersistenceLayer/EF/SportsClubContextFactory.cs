@@ -1,9 +1,10 @@
-using Microsoft.EntityFrameworkCore;
+ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace PersistenceLayer.EF
 {
-    public class SportsClubContextFactory : IDesignTimeDbContextFactory<SportsClubContext>
+    public class SportsClubContextFactory : 
+              IDesignTimeDbContextFactory<SportsClubContext>
     {
         public SportsClubContext CreateDbContext(string[] args)
         {

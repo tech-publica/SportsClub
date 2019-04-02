@@ -8,12 +8,16 @@ namespace PersistenceLayer.EF.Async.UnitsOfWork
     public class EFReservationUnitOfWorkAsync : ReservationUnitOfWorkAsync
     {
         private readonly SportsClubContext ctx;
-        public EFReservationUnitOfWorkAsync(SportsClubContext ctx, ReservationRepositoryAsync reservationRepository)
+        public EFReservationUnitOfWorkAsync(SportsClubContext ctx, 
+                ReservationRepositoryAsync reservationRepository,
+                CourtRepositoryAsync courtRepository)
         {
             this.ctx= ctx;
             ReservationRepository = reservationRepository;
+            CourtRepository = courtRepository;
         }
         public ReservationRepositoryAsync ReservationRepository { get; set; }
+        public CourtRepositoryAsync CourtRepository { get; set; }
 
         public async Task<int> SaveAsync()
         {

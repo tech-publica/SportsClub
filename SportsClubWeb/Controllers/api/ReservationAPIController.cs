@@ -27,10 +27,12 @@ namespace SportsClubWeb.Controllers.api
         [HttpGet]
         public async Task<ActionResult<ReservationDTO[]>> Get()
         {
-            //throw new Exception("BIG ERROR*********************************");
+          //  throw new Exception("BIG ERROR*********************************");
             try
             {
-                var reservations = await reservationUnitOfWork.ReservationRepository.AllReservationsAsync();
+                var reservations = await reservationUnitOfWork
+                    .ReservationRepository
+                    .AllReservationsAsync();
                 var reservationDTOs = autoMapper.Map<ReservationDTO[]>(reservations);
                 return Ok(reservationDTOs);
             }
@@ -93,22 +95,21 @@ namespace SportsClubWeb.Controllers.api
                 {
                     return BadRequest("court not available");
                 }
-                var location = linkGenerator.GetPathByAction("Get", "ReservationAPI", new { dto.Id });
+                
                 var newReservation = autoMapper.Map<Reservation>(dto);
+               // newReservation.Court =
+               // await reservationUnitOfWork.CourtRepository.FindByIdAsync(newReservation.CourtId);
                 reservationUnitOfWork.ReservationRepository.Add(newReservation);
                 await reservationUnitOfWork.SaveAsync();
+                reservationUnitOfWork.ReservationRepository.LoadRelationships(newReservation);
+                var location = linkGenerator.GetPathByAction("Get", "ReservationAPI", new { id = newReservation.Id });
                 return Created(location, autoMapper.Map<ReservationDTO>(newReservation));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                Console.Write(e.StackTrace);
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Internal Failure");
             }
-
-
-
-
-
         }
 
         [HttpPut("{id}")]
@@ -116,7 +117,8 @@ namespace SportsClubWeb.Controllers.api
         {
             try
             {
-                var existingReservation = await reservationUnitOfWork.ReservationRepository.FindByIdAsync(dto.Id);
+                var existingReservation = await reservationUnitOfWork
+                    .ReservationRepository.FindByIdAsync(dto.Id);
                 if (existingReservation == null)
                 {
                     return NotFound();

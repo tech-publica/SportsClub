@@ -12,10 +12,10 @@ namespace SportsClubWeb.ViewModels.Profiles
 
         public ReservationCreateViewModelProfile()
         {
-            this.CreateMap<ViewModels.ReservationCreateViewModel, Reservation>()
-                .ForMember(r => r.Id, (IMemberConfigurationExpression<ViewModels.ReservationCreateViewModel, Reservation, long> conf) => conf.Ignore())
-                .ForMember(r => r.Owner, (IMemberConfigurationExpression<ViewModels.ReservationCreateViewModel, Reservation, Member> conf) => conf.Ignore())
-                .ForMember(r => r.Court, (IMemberConfigurationExpression<ViewModels.ReservationCreateViewModel, Reservation, Court> conf) => conf.Ignore());     
+            this.CreateMap<ReservationCreateViewModel, Reservation>()
+                .ForMember(r => r.Id,  conf => conf.Ignore())
+                .ForMember(r => r.Owner,  conf => conf.Ignore())
+                .ForMember(r => r.Court,  conf => conf.Ignore());     
         }
            
     }

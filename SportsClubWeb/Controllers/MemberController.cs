@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SportsClubWeb.Controllers
 {
-   // [Authorize]
+    [Authorize]
     public class MemberController : Controller
     {
         private readonly MemberUnitOfWork memberWork;

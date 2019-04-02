@@ -28,7 +28,15 @@ namespace PersistenceLayer.EF.Async.Repositories
 
         public async Task<Reservation> FindByIdAsync(long id)
         {
-            return await ctx.Reservations.FindAsync(id);
+            return await ctx.Reservations.Include(r => r.Court)
+                        .Include(r => r.Owner)
+                        .SingleOrDefaultAsync(r => r.Id == id);
+        }
+
+        public void LoadRelationships(Reservation reservation)
+        {
+            ctx.Entry(reservation).Reference(r => r.Owner).Load();
+            ctx.Entry(reservation).Reference(r => r.Court).Load();
         }
 
         public void Remove(Reservation reservation)

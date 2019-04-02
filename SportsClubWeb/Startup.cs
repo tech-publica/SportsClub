@@ -38,6 +38,7 @@ namespace SportsClubWeb
                 .UseLazyLoadingProxies()
                 .UseSqlServer(
                     Configuration["Data:SportsClubContext:ConnectionString"]));
+            
             services.AddTransient<CourtUnitOfWork, EFCourtUnitOfWork>();
             services.AddTransient<CourtRepository, EFCourtRepository>();
             services.AddTransient<MemberRepository, EFMemberRepository>();
@@ -47,6 +48,7 @@ namespace SportsClubWeb
             services.AddTransient<ReservationRepository, EFReservationRepository>();
             services.AddTransient<ReservationUnitOfWorkAsync, EFReservationUnitOfWorkAsync>();
             services.AddTransient<ReservationRepositoryAsync, EFReservationRepositoryAsync>();
+            services.AddTransient<CourtRepositoryAsync, EFCourtRepositoryAsync>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,6 +84,7 @@ namespace SportsClubWeb
             //    await context.Response.WriteAsync("Hello World!");
             //});
             app.UseAuthentication();
+            //app.UseMvcWithDefaultRoute();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
